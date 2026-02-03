@@ -14,7 +14,6 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class Cliente extends Persona {
 
     @Column(unique = true)
