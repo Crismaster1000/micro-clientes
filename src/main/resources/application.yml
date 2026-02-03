@@ -1,0 +1,16 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: micro-clientes
+  datasource:
+    url: jdbc:postgresql://localhost:5432/clientes_db
+    username: postgres
+    password: postgres123
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
