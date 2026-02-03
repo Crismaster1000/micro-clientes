@@ -5,6 +5,7 @@ import com.stephano.microclientes.entity.Cliente;
 import com.stephano.microclientes.exceptions.BadRequestException;
 import com.stephano.microclientes.exceptions.ClientExistException;
 import com.stephano.microclientes.exceptions.NotFoundException;
+import com.stephano.microclientes.messaging.ClienteEventPublisher;
 import com.stephano.microclientes.repository.ClienteRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.util.stream.Collectors;
 public class ClienteService {
 
     private final ClienteRepository clienteRepository;
-    //private final ClienteEventPublisher clientePublisher;
+    private final ClienteEventPublisher clientePublisher;
 
     @Transactional
     public Cliente create(Cliente cliente) {
@@ -44,7 +45,7 @@ public class ClienteService {
         saved = clienteRepository.save(saved);
 
         // evento async para micro-cuentas
-        //publisher.publicarClienteCreado(saved);
+        clientePublisher.publicarClienteCreado(saved);
 
         return saved;
     }
@@ -85,7 +86,7 @@ public class ClienteService {
         Cliente updated = clienteRepository.save(cliente);
 
         // Evento async para micro-cuentas
-        //publisher.publicarClienteActualizado(updated);
+        clientePublisher.publicarClienteActualizado(updated);
 
         return updated;
     }
@@ -120,7 +121,7 @@ public class ClienteService {
         Cliente updated = clienteRepository.save(existing);
 
         // Evento async para micro-cuentas
-        //publisher.publicarClienteActualizado(updated);
+        clientePublisher.publicarClienteActualizado(updated);
 
         return updated;
     }
@@ -136,7 +137,7 @@ public class ClienteService {
         clienteRepository.delete(existing);
 
         // evento async
-        //publisher.publicarClienteEliminado(existing.getClienteId());
+        clientePublisher.publicarClienteEliminado(existing.getClienteId());
 
     }
 
