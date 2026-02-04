@@ -13,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -77,12 +76,10 @@ public class ClienteService {
                 && clienteRepository.existsByIdentificacion(cliente.getIdentificacion())) {
                     throw new BadRequestException("La identificación ya existe");
         }
-
-        // Mantener identidad (evita que el cliente cambie IDs)
+        
         cliente.setId(existing.getId());
         cliente.setClienteId(existing.getClienteId());
 
-        // Persistir "reemplazo" (nota: si vienen nulls, se guardarán nulls)
         Cliente updated = clienteRepository.save(cliente);
 
         // Evento async para micro-cuentas
