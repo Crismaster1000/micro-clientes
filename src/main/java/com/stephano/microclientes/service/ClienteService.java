@@ -76,7 +76,7 @@ public class ClienteService {
                 && clienteRepository.existsByIdentificacion(cliente.getIdentificacion())) {
                     throw new BadRequestException("La identificación ya existe");
         }
-        
+
         cliente.setId(existing.getId());
         cliente.setClienteId(existing.getClienteId());
 

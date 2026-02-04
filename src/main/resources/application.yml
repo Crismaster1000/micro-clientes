@@ -6,10 +6,11 @@ server:
 spring:
   application:
     name: micro-clientes
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/clientes_db
-    username: postgres
-    password: postgres123
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/clientes_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres123}
     driver-class-name: org.postgresql.Driver
 
   jpa:
@@ -18,13 +19,7 @@ spring:
     show-sql: true
 
   rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-
-logging:
-  level:
-    org.springframework.amqp: DEBUG
-    org.springframework.rabbit: DEBUG
-    com.rabbitmq: DEBUG
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
